@@ -19,12 +19,14 @@ jobs:
       - uses: actions/setup-python@v2
 
       - name: Install cibuildwheel
-        run: python -m pip install cibuildwheel twine pytest --upgrade pip
+        run: python3 -m pip install pytest wheel --upgrade pip
+
+      - name: Install prereqs
+        run: bash src/tools/install_pg_mac.sh ${{ github.ref }}
 
       - name: Build wheels
-        run: python -m cibuildwheel --platform macos --output-dir wheelhouse
-        env:
-          CIBW_BEFORE_ALL_MACOS: ${{ format('bash src/tools/install_pg_mac.sh {0}', github.ref) }}
+        run: python3 setup.py bdist_wheel --dist-dir wheelhouse
+
       - uses: actions/upload-artifact@v2
         with:
           path: ./wheelhouse/*.whl
@@ -33,4 +35,3 @@ jobs:
         with:
           name: artifact
           path: dist
-
