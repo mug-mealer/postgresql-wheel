@@ -1,0 +1,36 @@
+name: Build Wheels for MacOS
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macsos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel twine pytest --upgrade pip
+
+      - name: Build wheels
+        run: python -m cibuildwheel --platform macos --output-dir wheelhouse
+        env:
+          CIBW_BEFORE_ALL_MACOS: ${{ format('bash src/tools/install_pg_mac.sh {0}', github.ref) }}
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: dist
+
