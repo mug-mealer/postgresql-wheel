@@ -28,9 +28,7 @@ setup(
     packages=["postgresql"],
     package_dir={"postgresql": "src/postgresql"},
     package_data={"postgresql": package_files("src/postgresql")},
-    setup_requires=["cffi"],
-    install_requires=["pytest"],
-    cffi_modules=["src/postgresql/build.py:ffibuilder"],
+    setup_requires=["pytest"],
     python_requires=">=3.7,<3.10",
     license="Apache License 2.0",
     keywords=[
