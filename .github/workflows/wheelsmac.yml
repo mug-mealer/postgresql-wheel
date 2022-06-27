@@ -27,7 +27,7 @@ jobs:
         run: bash src/tools/install_pg_mac.sh ${{ github.ref }}
 
       - name: Build wheels
-        run: python3 setup.py bdist_wheel --dist-dir wheelhouse
+        run: python3 setup.py bdist_wheel --dist-dir wheelhouse --python-tag ${{ matrix.py-short }}
 
       - uses: actions/upload-artifact@v2
         with:
