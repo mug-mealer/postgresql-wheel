@@ -40,9 +40,5 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          path: ./wheelhouse/*.whl
-
-      - uses: actions/download-artifact@v2
-        with:
           name: artifact${{ matrix.py-short }}
-          path: dist
+          path: ./wheelhouse/*.whl
