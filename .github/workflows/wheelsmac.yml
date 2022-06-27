@@ -13,7 +13,16 @@ jobs:
       max-parallel: 4
       matrix:
         os: [macos-latest]
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.9, 3.10]
+        include:
+          - python-version: '3.7'
+            py-short: '37'
+          - python-version: '3.8'
+            py-short: '38'
+          - python-version: '3.9'
+            py-short: '39'
+          - python-version: '3.10'
+            py-short: '310'
 
     steps:
       - uses: actions/checkout@v2
