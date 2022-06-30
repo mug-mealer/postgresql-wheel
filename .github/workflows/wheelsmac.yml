@@ -16,13 +16,13 @@ jobs:
         python-version: [3.7, 3.8, 3.9, 3.10]
         include:
           - python-version: '3.7'
-            py-short: '37'
+            py-short: 'py37'
           - python-version: '3.8'
-            py-short: '38'
+            py-short: 'py38'
           - python-version: '3.9'
-            py-short: '39'
+            py-short: 'py39'
           - python-version: '3.10'
-            py-short: '310'
+            py-short: 'py310'
 
     steps:
       - uses: actions/checkout@v2
@@ -40,5 +40,5 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: artifact${{ matrix.py-short }}
+          name: artifact-${{ matrix.py-short }}
           path: ./wheelhouse/*.whl
